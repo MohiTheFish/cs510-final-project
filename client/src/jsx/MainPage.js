@@ -3,8 +3,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Paper from '@mui/material/Paper';
 import SearchIcon from '@mui/icons-material/Search';
 
-import PostList from 'PostList';
-import './MainPage.css';
+import PostList from 'jsx/PostList';
 
 
 export default function MainPage() {

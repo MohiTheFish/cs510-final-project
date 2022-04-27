@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import MainPage from 'MainPage';
+import MainPage from 'jsx/MainPage';
+import 'styles';
 
 const theme = createTheme({
   palette: {

@@ -14,6 +14,14 @@ const POST_PREVIEWS = [
     title: 'CS510 Assignment 2',
     details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
   },
+  {
+    title: 'CS510 Assignment 3',
+    details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
+  },
+  {
+    title: 'Semantic Analysis Confusion',
+    details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
+  },
 ]
 
 function PostSummary({title, details}) {
