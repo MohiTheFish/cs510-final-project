@@ -5,7 +5,7 @@
 }
 .post-list {
   box-sizing: border-box;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 121px);
 }
 .list-item-text {
   max-width: 100%;
