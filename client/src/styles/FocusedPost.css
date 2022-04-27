@@ -1,6 +1,8 @@
 .focused-post {
-  padding: 20px;
   margin-right: 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .focused-post .initial-message {
@@ -12,4 +14,8 @@
 .focused-post .primary {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.focused-post-card {
+  padding: 20px;
 }

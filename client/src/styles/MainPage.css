@@ -16,3 +16,14 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.home {
+  cursor: pointer;
+  font-size: 2rem;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+}
+.home:hover {
+  background-color: #5757572e;
+}
