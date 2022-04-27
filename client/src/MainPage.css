@@ -1,0 +1,13 @@
+#memsrch-root {
+  min-height: 100vh;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+#memsrch-root header {
+  padding: 10px;
+}
+
+.post-list {
+  width: 100%;
+}
