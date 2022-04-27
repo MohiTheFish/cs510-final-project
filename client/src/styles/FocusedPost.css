@@ -1,0 +1,15 @@
+.focused-post {
+  padding: 20px;
+  margin-right: 10px;
+}
+
+.focused-post .initial-message {
+  text-align: center;
+  font-size: 20px;
+}
+
+
+.focused-post .primary {
+  font-size: 1.25rem;
+  font-weight: bold;
+}

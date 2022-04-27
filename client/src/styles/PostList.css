@@ -1,5 +1,7 @@
 .post-list {
-  width: 500px;
+  max-width: 500px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .list-item-text {
@@ -11,9 +13,13 @@
 .list-item-text .primary {
   font-size: 1.1rem;
   font-weight: bold;
-
 }
 
 .list-item-text .secondary {
   font-size: 1rem;
+}
+
+#query-input {
+  margin-left: 10px;
+  width: 490px;
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   List,
   ListItem,
@@ -6,34 +7,13 @@ import {
   InputAdornment,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { useSelector, useDispatch } from "react-redux";
+import { updateQuery, selectPost } from 'redux/memSlice';
 
-const POST_PREVIEWS = [
-  {
-    title: 'CS510 Assignment 1',
-    details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
-  },
-  {
-    title: 'CS510 Assignment 2',
-    details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
-  },
-  {
-    title: 'CS510 Assignment 3',
-    details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
-  },
-  {
-    title: 'Semantic Analysis Confusion',
-    details: 'I was wondering about how we would go about solving the question. There seems to be some trick that I am missing, but I am not sure how to solve it'
-  },
-]
-
-function PostSummary({title, details}) {
+function PostSummary({postId, title, details}) {
+  const dispatch = useDispatch();
   return (
-    <ListItem button className="post-summary">
-      {/* <ListItemText
-        className='post-summary-text'
-        primary={title}
-        secondary={details}
-      /> */}
+    <ListItem button className="post-summary" onClick={() => dispatch(selectPost(postId))}>
       <div className="list-item-text">
         <p className="primary">{title}</p>
         <p className="secondary">{details}</p>
@@ -43,17 +23,21 @@ function PostSummary({title, details}) {
 }
 
 export default function PostList() {
+  const dispatch = useDispatch();
+  const { query, postPreviews } = useSelector((store) => store.mem)
   function handleChange(e) {
     const text = e.target.value;
+    dispatch(updateQuery(text));
   }
   return (
     <div className="post-list">
       <TextField
         onChange={handleChange}
+        value={query}
         label="Type to search something in MEMSrch."
         sx={{
-          width: '100%',
-          marginLeft: '10px'
+          marginLeft: '10px',
+          width: 'calc(100% - 10px)',
         }}
         InputProps={{
           startAdornment: (
@@ -66,13 +50,13 @@ export default function PostList() {
       />
       <List>
         {
-          POST_PREVIEWS.map((post, index) => {
-            const isLast = index === POST_PREVIEWS.length-1;
+          postPreviews.map((post, index) => {
+            const isLast = index === postPreviews.length-1;
             return (
-              <>
-                <PostSummary key={index} {...post}/>
+              <React.Fragment key={index}>
+                <PostSummary {...post}/>
                 {isLast ? null : <Divider component="li" />}
-              </>
+              </React.Fragment>
             )
           })
         }
