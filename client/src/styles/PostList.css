@@ -1,0 +1,19 @@
+.post-list {
+  width: 500px;
+}
+
+.list-item-text {
+  max-width: 500px;
+  max-height: 70px;
+  overflow: hidden;
+}
+
+.list-item-text .primary {
+  font-size: 1.1rem;
+  font-weight: bold;
+
+}
+
+.list-item-text .secondary {
+  font-size: 1rem;
+}

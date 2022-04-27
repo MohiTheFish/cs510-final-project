@@ -1,9 +1,11 @@
 import {
   List,
   ListItem,
-  ListItemText,
   Divider,
+  TextField,
+  InputAdornment,
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const POST_PREVIEWS = [
   {
@@ -27,17 +29,41 @@ const POST_PREVIEWS = [
 function PostSummary({title, details}) {
   return (
     <ListItem button className="post-summary">
-      <ListItemText
+      {/* <ListItemText
+        className='post-summary-text'
         primary={title}
         secondary={details}
-      />
+      /> */}
+      <div className="list-item-text">
+        <p className="primary">{title}</p>
+        <p className="secondary">{details}</p>
+      </div>
     </ListItem>
   )
 }
 
 export default function PostList() {
+  function handleChange(e) {
+    const text = e.target.value;
+  }
   return (
     <div className="post-list">
+      <TextField
+        onChange={handleChange}
+        label="Type to search something in MEMSrch."
+        sx={{
+          width: '100%',
+          marginLeft: '10px'
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        variant="standard"
+      />
       <List>
         {
           POST_PREVIEWS.map((post, index) => {
