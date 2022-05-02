@@ -6,8 +6,10 @@ import sys
 
 from searcher import Searcher
 
-@app.route('/get/<string:name>', methods=['GET'])
-def getsearch(name):
+@app.route('/results', methods=['GET'])
+def getsearch():
+    name = request.args.get('query')
+    print(name)
     return app.searcher.search(name)
 
 def server(config):
