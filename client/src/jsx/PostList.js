@@ -34,15 +34,15 @@ export default function PostList() {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('Got the data');
-      }, 500)
-    });
+    const promise = fetch("http://127.0.0.1:5000/results?query=" + query)
 
     promise.then((res) => {
       setIsLoading(false);
+      return res.json();
+    }).then((res) => {
+      console.log(res);
     });
+    
   }
   return (
     <div className="post-list-container">
