@@ -1,3 +1,6 @@
+:root {
+  --focused-post-linesep: 1px solid #eee;
+}
 .focused-post {
   margin-right: 10px;
   flex-grow: 1;
@@ -8,6 +11,7 @@
 .focused-post .initial-message {
   text-align: center;
   font-size: 20px;
+  padding: 20px;
 }
 
 
@@ -15,7 +19,18 @@
   font-size: 1.25rem;
   font-weight: bold;
 }
+.focused-post .primary, .focused-post .content section {
+  padding: 10px;
+  border-bottom: var(--focused-post-linesep);
+}
+.focused-post .content section:last-of-type {
+  border-bottom: none;
+}
 
-.focused-post-card {
-  padding: 20px;
+.focused-post .focused-post-card {
+  margin-bottom: 20px;
+}
+
+.focused-post .content img {
+  max-width: 100%;
 }
