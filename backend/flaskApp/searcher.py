@@ -40,13 +40,18 @@ class Searcher:
         response = {'query': request, 'results': []}
         top_docs = ranker.score(self.idx, query, num_results=5)
 
-        metadatalinks = self.readFile("metadata.txt")
+        metadatalinks = []
+        json_file_path = "metadata.json"
+        with open(json_file_path, 'r') as j:
+            metadatalinks = json.loads(j.read())
+
+        print(metadatalinks[0])
         for num, (d_id, _) in enumerate(top_docs):
+            print("current did", d_id)
             content = self.idx.metadata(d_id).get('content')
             print("{}. {}\n".format(d_id, content))
             response['results'].append({
-                'name': metadatalinks[d_id],
-                'content': content
+                'content': metadatalinks[d_id]
             })
         response['elapsed_time'] = time.time() - start
         resp = flask.Response(json.dumps(response, indent=2))
