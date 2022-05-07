@@ -22,6 +22,15 @@ class Searcher:
         fileObj.close()
         return words
 
+    def getAllPosts(self):
+        metadatalinks = []
+        json_file_path = "metadata.json"
+        with open(json_file_path, 'r') as j:
+            metadatalinks = json.loads(j.read())
+        resp = flask.Response(json.dumps(metadatalinks))
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
+
     def search(self, request):
         """
         Accept a JSON request and run the provided query with the specified
