@@ -1,9 +1,8 @@
 import {
-  Card, Paper,
-  CardHeader,
+  Card
 } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import CodeBlock from 'jsx/CodeBlock';
 
 function FocusedPostContent(props) {
@@ -12,7 +11,7 @@ function FocusedPostContent(props) {
 
 function FocusedPostCard(props) {
   const {className, ...otherProps} = props;
-  return <Card className={`focused-post-card ${className || ''}`} elevation={4} {...otherProps} />;
+  return <Card className={`focused-post-card ${className || ''}`} elevation={8} {...otherProps} />;
 }
 
 function Markdown({children}) {
@@ -31,7 +30,7 @@ function Markdown({children}) {
  * But I'll just use the mock data for the moment.
  */
 export default function FocusedPost() {
-  const {expandedPost, postPreviews} = useSelector((state) => state.mem);
+  const {expandedPost, postInfo} = useSelector((state) => state.mem);
   if (expandedPost === -1) {
     return (
       <FocusedPostContent>
@@ -42,21 +41,23 @@ export default function FocusedPost() {
     )
   }
 
-  const post = postPreviews[expandedPost];
+  const post = postInfo[expandedPost];
   return (
     <FocusedPostContent>
       <FocusedPostCard>
-        <p className="primary">{post.title}</p>
+        <p className="primary">{post.post.title}</p>
         <div className="content">
-          <Markdown>{post.details}</Markdown>
+          <Markdown>{post.post.body}</Markdown>
         </div>
       </FocusedPostCard>
       <FocusedPostCard>
         <p className="primary">Responses/Comments</p>
         <div className="content">
-          <Markdown>
-            {"![retrain.jpg](https://campuspro-uploads.s3.us-west-2.amazonaws.com/ceebfe56-6335-45b6-9f4b-9c79220ce14a/59484e60-3c4b-49ae-8463-b028818ab8d0/retrain.jpg)  \n\n After editing **sampleseq3** (inserting a P) to \n**sampleseq4** do we have to retrain the model with **sampleseq4**?\n\nOn testing the insertion of P,\nDo we simply run:\n```bash\n./hmm -d -m sampleunsupmod3 -s sampleseq4\n```\n\nOr do we have to retrain HMM with sampleseq4?\n```\n ./hmm -t -n 2 -m sampleunsupmod4 -s sampleseq4\n./hmm -d -m sampleunsupmod4 -s sampleseq4\n```"}
-          </Markdown>
+          {
+            post.comments.map(({body, id}) => {
+              return <Markdown key={id}>{body}</Markdown>
+            })
+          }
         </div>
       </FocusedPostCard>
     </FocusedPostContent>
