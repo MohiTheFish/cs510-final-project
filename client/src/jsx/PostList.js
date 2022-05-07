@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   List,
   ListItem,
@@ -8,39 +8,38 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useSelector, useDispatch } from "react-redux";
-import { updateQuery, selectPost } from 'redux/memSlice';
+import { updateQuery, selectPost, sentFetchPosts, gotPosts } from 'redux/memSlice';
 import Loading from 'jsx/Loading';
 
-function PostSummary({postId, title, details}) {
+function PostSummary({id: postId, title, body}) {
   const dispatch = useDispatch();
   return (
     <ListItem button className="post-summary" onClick={() => dispatch(selectPost(postId))}>
       <div className="list-item-text">
         <p className="primary">{title}</p>
-        <p className="secondary">{details}</p>
+        <p className="secondary">{body}</p>
       </div>
     </ListItem>
   )
 }
 
 export default function PostList() {
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const { query, postPreviews } = useSelector((store) => store.mem)
+  const { query, postInfo, isLoadingPostInfo } = useSelector((store) => store.mem)
   function handleChange(e) {
     const text = e.target.value;
     dispatch(updateQuery(text));
   }
   function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
-    const promise = fetch("http://127.0.0.1:5000/results?query=" + query)
+    sentFetchPosts();
+    console.log('fetch')
+    const promise = fetch("http://192.168.10.90:5000/results?query=" + query)
 
     promise.then((res) => {
-      setIsLoading(false);
       return res.json();
     }).then((res) => {
-      console.log(res);
+      dispatch(gotPosts(res));
     });
     
   }
@@ -69,13 +68,13 @@ export default function PostList() {
       
       <List className="post-list">
       {
-        isLoading
+        isLoadingPostInfo
         ? <Loading />
-        : postPreviews.map((post, index) => {
-            const isLast = index === postPreviews.length-1;
+        : postInfo.map((post, index) => {
+            const isLast = index === postInfo.length-1;
             return (
               <React.Fragment key={index}>
-                <PostSummary {...post}/>
+                <PostSummary {...post.post}/>
                 {isLast ? null : <Divider component="li" />}
               </React.Fragment>
             )
