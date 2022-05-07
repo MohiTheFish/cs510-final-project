@@ -1,18 +1,17 @@
 index = "idx"
+prefix = "."
+stop-words = "stopwords.txt"
 corpus = "line.toml"
 dataset = "data"
-stop-words = "stopwords.txt"
-prefix = "."
 [ranker]
 	k3 = 500
-	b = 0.750000
 	k1 = 1.20000
+	b = 0.750000
 	method = "bm25"
 [[analyzers]]
 	ngram = 1
 	method = "ngram-word"
 	[[analyzers.filter]]
-		suppress-tags = true
 		type = "icu-tokenizer"
 	[[analyzers.filter]]
 		type = "lowercase"
