@@ -1,0 +1,52 @@
+[
+{
+	"post":{
+		"title": "5 Steps to derive E-step and M-step",
+		"body": "![%E6%88%AA%E5%B1%8F2022-04-23%20%E4%B8%8B%E5%8D%886.26.23.png](https://campuspro-uploads.s3.us-west-2.amazonaws.com/ceebfe56-6335-45b6-9f4b-9c79220ce14a/27ed7922-d340-4ece-b844-2688bda74424/%E6%88%AA%E5%B1%8F2022-04-23%20%E4%B8%8B%E5%8D%886.26.23.png)\n\nHi! I check the 5 steps of deriving EM algorithm in Assignment 3. I notice that step 5 asks us to write down $$p(Z | X, \\Theta^{(t)})$$. However, this parameter has been used in step 2 already, since we take expectation w.r.t. $$Z \\sim p(Z | X, \\Theta^{(t)})$$. \n\n**My Question**: Is it correct that for results in step 2-4, we should have result with unknown $$p(Z | X, \\Theta^{(t)})$$ (or $$p(z_i | w_i, \\Theta^{(t)})$$ for a single writer/word pair), and don't need to write down its explicit form? And we only write its explicit form in step 5? "
+	},
+	"comments":[
+		"Not a direct answer, but take a look at \"EM Note 1\" pdf from the schedule page. That should help.", 
+		"Thanks, I think it helps"
+	]
+},
+{
+	"post":{
+		"title": "Experimental Lab Length Cutoff",
+        "body": "Our experimental lab is going over due to inclusion of figures like confusion matrix and tables. Is this ok or should these things be omitted? I think they add a lot to the report personally. Thanks!"
+	},
+	"comments":[
+        "No worries if you go over the length requirement ",
+		"Thanks!"
+	]
+},
+{
+	"post":{
+        "title": "HMM question 3.2",
+        "body": "![retrain.jpg](https://campuspro-uploads.s3.us-west-2.amazonaws.com/ceebfe56-6335-45b6-9f4b-9c79220ce14a/59484e60-3c4b-49ae-8463-b028818ab8d0/retrain.jpg)\n\nAfter editing **sampleseq3** (inserting a P) to \n**sampleseq4** do we have to retrain the model with **sampleseq4**?\n\nOn testing the insertion of P,\nDo we simply run:\n```\n./hmm -d -m sampleunsupmod3 -s sampleseq4\n```\n\nOr do we have to retrain HMM with sampleseq4?\n```\n ./hmm -t -n 2 -m sampleunsupmod4 -s sampleseq4\n./hmm -d -m sampleunsupmod4 -s sampleseq4\n```"
+	},
+	"comments":[
+        "yes! you need to retrain it"
+	]
+},
+{
+	"post":{
+        "title": "Assignment 3 Question 3",
+        "body": "For the labelled documents, we enforce all words in the same document to be sampled from the same given topic. \n\nHowever, for unlabelled documents, do we also assume that all words in the same document are from the same unknown topic? Or similar to standard PLSA we can assign different topics to different words? "
+	},
+	"comments":[
+        "yes, assuming that all words in the same document are from the same unknown topic means you chose case 1) from \"tips on how to start\". It is a valid assumption and will actually simplify some of the calculations.",
+        "Wait, option 1 only enforces words in the same labeled documents to have same topic,  but says nothing about unlabeled documents. \n\nDoes the correct answer penalize assuming words from each unlabeled document follows the mixture distribution?",
+        "nope no penalty. the rubric for this question is purposefully lenient because there are multiple ways to interpret it.",
+        "but if you do assume that even the unlabeled documents' words come from only 1 topic, calculations will be simpler."
+	]
+},
+{
+	"post":{
+        "title": "Any idea of HMM (Viterbi 1.3)?",
+        "body": "I've tried many different numbers, and all of them either tag all symbols to 0 or generate the same result as sampletag2 ;("
+	},
+	"comments":[
+        "Try changing output probability for state 0"
+	]
+}
+]
