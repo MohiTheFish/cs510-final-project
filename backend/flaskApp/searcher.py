@@ -2,19 +2,19 @@ import json
 import time
 import flask
 
-import metapy
+# import metapy
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from rank_bm25 import *
+import re
 
 class Searcher:
     """
     Wraps the MeTA search engine and its rankers.
     """
-    def __init__(self, cfg):
-        """
-        Create/load a MeTA inverted index based on the provided config file and
-        set the default ranking algorithm to Okapi BM25.
-        """
-        self.idx = metapy.index.make_inverted_index(cfg)
-        self.default_ranker = metapy.index.OkapiBM25()
+    def __init__(self):
+        pass
 
     def readFile(self, fileName):
         fileObj = open(fileName, "r") #opens the file in read mode
@@ -31,39 +31,41 @@ class Searcher:
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
 
-    def search(self, request):
+    def search(self, query):
         """
         Accept a JSON request and run the provided query with the specified
         ranker.
         """
         start = time.time()
-        query = metapy.index.Document()
-        query.content(request)
-        # ranker_id = request['ranker']
-        # try:
-        #     ranker = getattr(metapy.index, ranker_id)()
-        # except:
-        #     print("Couldn't make '{}' ranker, using default.".format(ranker_id))
-        #     ranker = self.default_ranker
-        ranker = metapy.index.OkapiBM25()
-        response = {'query': request, 'results': []}
-        top_docs = ranker.score(self.idx, query, num_results=5)
-
+        corpus = []
+        with open('./data/data.dat', 'r') as f:
+            corpus = f.readlines()
         metadatalinks = []
         json_file_path = "metadata.json"
         with open(json_file_path, 'r') as j:
             metadatalinks = json.loads(j.read())
 
-        print(metadatalinks[0])
-        for num, (d_id, _) in enumerate(top_docs):
-            print("current did", d_id)
-            content = self.idx.metadata(d_id).get('content')
-            print("{}. {}\n".format(d_id, content))
-            response['results'].append({
-                'content': metadatalinks[d_id]
-            })
-        response['elapsed_time'] = time.time() - start
-        resp = flask.Response(json.dumps(response, indent=2))
+        # Only keep letters, numbers, spaces. TODO Handle MATH Mode (stuff in double $$)
+        for i, doc in enumerate(corpus):
+            new_str = re.sub("[^0-9a-zA-Z\s]", "", doc)
+            print(new_str)
+            corpus[i] = new_str
+
+        # Remove stopwords
+        stop_words = set(stopwords.words('english'))
+        for i, doc in enumerate(corpus):
+            text_tokens = word_tokenize(doc)
+            tokens_without_sw = [word for word in text_tokens if not word.lower() in stop_words]
+            new_str = " ".join(tokens_without_sw)
+            corpus[i] = new_str
+
+
+        tokenized_corpus = [doc.split(" ") for doc in corpus]
+        bm25 = BM25Okapi(tokenized_corpus)
+        tokenized_query = query.split(" ")
+        docs = bm25.get_top_n(tokenized_query, metadatalinks, n=5)
+
+        resp = flask.Response(json.dumps(docs))
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
 
