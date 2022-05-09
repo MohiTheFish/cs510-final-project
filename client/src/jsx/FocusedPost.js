@@ -30,8 +30,8 @@ function Markdown({children}) {
  * But I'll just use the mock data for the moment.
  */
 export default function FocusedPost() {
-  const {expandedPost, postInfo} = useSelector((state) => state.mem);
-  if (expandedPost === -1) {
+  const {expandedPost} = useSelector((state) => state.mem);
+  if (expandedPost === null) {
     return (
       <FocusedPostContent>
         <FocusedPostCard className='initial-message'>
@@ -41,20 +41,20 @@ export default function FocusedPost() {
     )
   }
 
-  const post = postInfo[expandedPost];
+  console.log(expandedPost);
   return (
     <FocusedPostContent>
       <FocusedPostCard>
-        <p className="primary">{post.post.title}</p>
+        <p className="primary">{expandedPost.post.title}</p>
         <div className="content">
-          <Markdown>{post.post.body}</Markdown>
+          <Markdown>{expandedPost.post.body}</Markdown>
         </div>
       </FocusedPostCard>
       <FocusedPostCard>
         <p className="primary">Responses/Comments</p>
         <div className="content">
           {
-            post.comments.map(({body, id}) => {
+            expandedPost.comments.map(({body, id}) => {
               return <Markdown key={id}>{body}</Markdown>
             })
           }
