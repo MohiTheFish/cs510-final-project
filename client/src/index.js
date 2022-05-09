@@ -5,12 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from 'store';
 import { gotPosts } from 'redux/memSlice'
-
+import { BACKEND_DOMAIN } from 'api';
 import './index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
-fetch("http://192.168.10.90:5000/allposts").then(res => res.json())
+fetch(`http://${BACKEND_DOMAIN}/allposts`).then(res => res.json())
   .then((res) => {
     store.dispatch(gotPosts(res));
   })
