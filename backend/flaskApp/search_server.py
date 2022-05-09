@@ -12,6 +12,10 @@ def getsearch():
     print(name)
     return app.searcher.search(name)
 
+@app.route('/allposts', methods=['GET'])
+def getallposts():
+    return app.searcher.getAllPosts()
+
 def server(config):
     app.searcher = Searcher(config)
     return app
@@ -21,4 +25,4 @@ if __name__ == '__main__':
         print("Usage: {} config.toml".format(sys.argv[0]))
         sys.exit(1)
 
-    server(sys.argv[1]).run(debug=True)
+    server(sys.argv[1]).run(host="0.0.0.0", debug=True)
