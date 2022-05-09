@@ -26,9 +26,10 @@ const memSlice = createSlice({
   name: 'mem',
   initialState: {
     query: '',
+    lastFetchedQuery: '',
     postInfo: [],
     isLoadingPostInfo: true,
-    expandedPost: -1,
+    expandedPost: null,
   },
   reducers: {
     updateQuery: (state, action) => {
@@ -39,20 +40,25 @@ const memSlice = createSlice({
     },
     sentFetchPosts: (state) => {
       state.hasLoadedPostInfo = true;
+      state.lastFetchedQuery = state.query;
     },
     gotPosts: (state, action) => {
       state.isLoadingPostInfo = false;
-      
       action.payload.forEach((post, index) => {
+        post.id = index
         post.comments = post.comments.map((comment, index) => {
           return {
             body: comment,
             id: index,
           }
         })
-        post.post.id = index
       });
       state.postInfo = action.payload;
+    },
+    cancelQuery: (state, action) => {
+      state.query = '';
+      state.lastFetchedQuery = '';
+
     }
   }
 })

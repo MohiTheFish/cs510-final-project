@@ -1,6 +1,5 @@
 from flask import Flask, request
 app = Flask(__name__, static_url_path='')
-import json
 import sys
 
 
@@ -15,8 +14,8 @@ def getsearch():
 def getallposts():
     return app.searcher.getAllPosts()
 
-def server(config):
-    app.searcher = Searcher(config)
+def server():
+    app.searcher = Searcher()
     return app
 
 if __name__ == '__main__':
@@ -24,4 +23,4 @@ if __name__ == '__main__':
         print("Usage: {} config.toml".format(sys.argv[0]))
         sys.exit(1)
 
-    server(sys.argv[1]).run(host="0.0.0.0", debug=True)
+    server().run(host="0.0.0.0", debug=True)
