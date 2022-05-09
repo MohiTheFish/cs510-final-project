@@ -10,6 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useSelector, useDispatch } from "react-redux";
 import { updateQuery, selectPost, sentFetchPosts, gotPosts } from 'redux/memSlice';
 import Loading from 'jsx/Loading';
+import { BACKEND_DOMAIN } from 'api';
 
 function PostSummary({id: postId, title, body}) {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function PostList() {
     e.preventDefault();
     sentFetchPosts();
     console.log('fetch')
-    const promise = fetch("http://192.168.10.90:5000/results?query=" + query)
+    const promise = fetch(`http://${BACKEND_DOMAIN}/results?query=${query}`)
 
     promise.then((res) => {
       return res.json();

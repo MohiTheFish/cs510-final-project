@@ -9,7 +9,6 @@ from searcher import Searcher
 @app.route('/results', methods=['GET'])
 def getsearch():
     name = request.args.get('query')
-    print(name)
     return app.searcher.search(name)
 
 @app.route('/allposts', methods=['GET'])
