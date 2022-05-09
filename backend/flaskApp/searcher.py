@@ -47,8 +47,7 @@ class Searcher:
 
         # Only keep letters, numbers, spaces. TODO Handle MATH Mode (stuff in double $$)
         for i, doc in enumerate(corpus):
-            new_str = re.sub("[^0-9a-zA-Z\s]", "", doc)
-            print(new_str)
+            new_str = re.sub("[^0-9a-zA-Z\s\-]", "", doc)
             corpus[i] = new_str
 
         # Remove stopwords
