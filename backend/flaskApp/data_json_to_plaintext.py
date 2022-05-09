@@ -39,7 +39,7 @@ if __name__ == "__main__":
         outFile = open('./data/data.dat', 'w+')
 
         for entry in data:
-            totalDoc = entry["post"]["body"] + ' '
+            totalDoc = entry["post"]["title"] + ' ' + entry["post"]["body"] + ' '
             for comment in entry["comments"]:
                 totalDoc += comment + ' '
 
