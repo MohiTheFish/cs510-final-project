@@ -2,8 +2,6 @@ import json
 import time
 import flask
 
-# import metapy
-import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from rank_bm25 import *
