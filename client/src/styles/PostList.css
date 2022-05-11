@@ -6,6 +6,7 @@
 .post-list {
   box-sizing: border-box;
   height: calc(100vh - 121px);
+  overflow-y: auto;
 }
 .list-item-text {
   max-width: 100%;
