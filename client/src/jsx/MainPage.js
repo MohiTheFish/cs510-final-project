@@ -2,7 +2,6 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import PostList from 'jsx/PostList';
 import FocusedPost from 'jsx/FocusedPost';
-import ButtonBase from '@mui/material/ButtonBase';
 import { useDispatch } from 'react-redux';
 import { selectPost } from 'redux/memSlice';
 
@@ -12,7 +11,7 @@ export default function MainPage() {
   return (
     <Paper id="memsrch-root">
       <header>
-        <h1 className="home" onClick={() => dispatch(selectPost(-1))} role='button'>
+        <h1 className="home" onClick={() => dispatch(selectPost(null))} role='button'>
           MEMSrch
         </h1>
       </header>

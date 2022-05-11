@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useSelector, useDispatch } from "react-redux";
-import { updateQuery, selectPost, sentFetchPosts, gotPosts } from 'redux/memSlice';
+import { updateQuery, selectPost, sentFetchPosts, clearQuery, gotPosts } from 'redux/memSlice';
 import Loading from 'jsx/Loading';
 import { BACKEND_DOMAIN } from 'api';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -49,11 +49,10 @@ export default function PostList() {
   }
   function cancelQuery(e) {
     e.preventDefault();
-    if (query === '') {
+    if (lastFetchedQuery === '') {
       return '';
     }
-    dispatch(updateQuery(''));
-    dispatch(sentFetchPosts());
+    dispatch(clearQuery());
     fetch(`http://${BACKEND_DOMAIN}/allposts`)
     .then(res => res.json())
     .then(res => {
@@ -96,7 +95,6 @@ export default function PostList() {
         ? <Loading />
         : postInfo.map((post, index) => {
             const isLast = index === postInfo.length-1;
-            console.log(post);
             return (
               <React.Fragment key={post.id}>
                 <PostSummary post={post}/>
