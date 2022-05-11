@@ -1,3 +1,4 @@
+import sys
 import json
 from bs4 import BeautifulSoup
 from markdown import markdown
@@ -5,7 +6,6 @@ import requests
 import cv2
 import pytesseract
 import os
-
 
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
@@ -50,11 +50,11 @@ def markdown_to_text(markdown_string):
 
     return text
 
-if __name__ == "__main__":
-    with open('./metadata.json') as f:
+def data_json_to_plaintext(input_json, out_file):
+    with open(input_json) as f:
         data = json.loads(f.read())
 
-        outFile = open('./data/data.dat', 'w+')
+        outFile = open(out_file, 'w+')
 
         for entry in data:
             totalDoc = entry["post"]["title"] + ' ' + entry["post"]["body"] + ' '
@@ -68,3 +68,14 @@ if __name__ == "__main__":
         
         outFile.close()
         os.remove(tmpFile)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: {} [input_json] [output_file]".format(sys.argv[0]))
+        sys.exit(1)
+    
+    input_json = sys.argv[1]
+    out_file = sys.argv[2]
+
+    data_json_to_plaintext(input_json, out_file)
