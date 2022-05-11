@@ -39,8 +39,13 @@ const memSlice = createSlice({
       state.expandedPost = action.payload;
     },
     sentFetchPosts: (state) => {
-      state.hasLoadedPostInfo = true;
+      state.isLoadingPostInfo = true;
       state.lastFetchedQuery = state.query;
+    },
+    clearQuery: (state) => {
+      state.query = '';
+      state.lastFetchedQuery = '';
+      state.isLoadingPostInfo = true;
     },
     gotPosts: (state, action) => {
       state.isLoadingPostInfo = false;
@@ -54,15 +59,10 @@ const memSlice = createSlice({
         })
       });
       state.postInfo = action.payload;
-    },
-    cancelQuery: (state, action) => {
-      state.query = '';
-      state.lastFetchedQuery = '';
-
     }
   }
 })
 
-export const { updateQuery, selectPost, sentFetchPosts, gotPosts } = memSlice.actions;
+export const { updateQuery, selectPost, sentFetchPosts, clearQuery, gotPosts } = memSlice.actions;
 
 export default memSlice.reducer;

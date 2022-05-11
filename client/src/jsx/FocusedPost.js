@@ -41,7 +41,6 @@ export default function FocusedPost() {
     )
   }
 
-  console.log(expandedPost);
   return (
     <FocusedPostContent>
       <FocusedPostCard>
